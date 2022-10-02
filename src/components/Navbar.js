@@ -5,9 +5,14 @@ import Typography from '@mui/material/Typography'
 import ToolBar from '@mui/material/Toolbar'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
+import {useLogout} from '../hooks/useLogout'
+import { useAuthContext } from '../hooks/useAuthContext'
 
 
 export default function Navbar() {
+
+    const { logout } = useLogout()
+    const {user}=useAuthContext();
     return (
         <div>
            <Box sx={{flexGrow:1}}>
@@ -18,7 +23,9 @@ export default function Navbar() {
                         </Link>
 
                     </Typography>
-                    <Button variant='outlined' color='inherit'>
+                      {!user && (
+                        <>
+                           <Button variant='outlined' color='inherit'>
                         <Link component="button" className={styles.link} to="login">GİRİŞ</Link>
 
                     </Button>
@@ -27,7 +34,19 @@ export default function Navbar() {
                         <Link component="button" className={styles.link} to="signup">Üye Ol</Link>
 
                     </Button>
+                        </>
+                      )}
+                       
+                       {user && (
+                        <>
+                         <Typography variant="caption">Merhaba {user.displayName}</Typography>
+                         <Button variant='contained' onClick={logout} color='secondary' sx={{ml:5}}>
+                           Çıkış
+                         </Button>
 
+                        </>
+                       )}
+                   
 
 
 

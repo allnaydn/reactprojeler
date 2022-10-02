@@ -2,8 +2,14 @@ import './Login.module.css';
 import {Container,Typography,Button,FormControl,FilledInput,InputLabel, InputAdornment, IconButton} from '@mui/material';
 import { useState } from 'react';
 import {Visibility, VisibilityOff} from '@mui/icons-material'
+import { useLogin } from '../../hooks/useLogin';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+
+    const navigate=useNavigate();
+
+    const {login,hata,bekliyor}=useLogin();
 
     const [values, setValues]=useState({
         email:"",
@@ -17,7 +23,9 @@ export default function Login() {
 
     const handleSubmit=(e)=>{
         e.preventDefault();
-        console.log(values);
+        //console.log(values);
+        login(values.email,values.password);
+        navigate('/')
     }
 
     const handleClickShowPassword=()=>{
@@ -43,8 +51,10 @@ export default function Login() {
 
             <FormControl fullWidth sx={{ my: 5 }}>
                 <InputLabel htmlFor="password">Parola</InputLabel>
-                <FilledInput type={values.showPassword ? 'text': 'password'}
-                    value={values.password} onChange={handleChange('password')} endAdornment={<InputAdornment position='end'>
+                <FilledInput type={values.showPassword ? 'text' : 'password'}
+                    value={values.password} onChange={handleChange('password')}
+                         endAdornment={
+                         <InputAdornment position='end'>
                         <IconButton aria-label = "Toggle Password" onClick={handleClickShowPassword} edge="end">
                             {values.showPassword ? <VisibilityOff/> : <Visibility/>}
                         </IconButton>
@@ -53,7 +63,10 @@ export default function Login() {
                     label="Parola"
                 />
             </FormControl>
-            <Button variant="outlined" type="submit" color="info" size="large" sx={{mt:5}}>GİRİŞ</Button>
+
+            {bekliyor &&<Button disabled variant="outlined" type="submit" color="info" size="large" sx={{mt:5}}>BEKLİYOR</Button>}
+            {!bekliyor &&<Button variant="outlined" type="submit" color="info" size="large" sx={{mt:5}}>GİRİŞ</Button>}
+            {hata && <p>{hata}</p>}
         </form>
       </Container>
     )
