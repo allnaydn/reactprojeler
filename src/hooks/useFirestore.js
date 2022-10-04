@@ -1,6 +1,6 @@
 import { useEffect,useState,useReducer } from "react";
 import {db} from "../firebase/config"
-import { collection,addDoc } from "firebase/firestore";
+import { collection,addDoc,serverTimestamp } from "firebase/firestore";
 
 
 const baslangicVeri={
@@ -28,7 +28,6 @@ const firestoreReducer=(state,action)=>{
 export const useFirestore=(col)=>{
    const [response,dispatch]=useReducer(firestoreReducer,baslangicVeri);
    const[iptal,setIptal]=useState(false)
-
    const ref=collection(db,col)
 
    const belgeEkle=async (belge)=>{
@@ -36,7 +35,8 @@ export const useFirestore=(col)=>{
     dispatch({type:'BEKLIYOR'})
 
     try {
-        const eklenenBelge=await addDoc(ref,belge)
+        const olusturulmaTarih=serverTimestamp();
+        const eklenenBelge=await addDoc(ref,{...belge,olusturulmaTarih})
         if(!iptal){
             dispatch({type:'BELGE_EKLENDI',payload:eklenenBelge})
         }
@@ -56,7 +56,7 @@ export const useFirestore=(col)=>{
 
    useEffect(()=>{
     return()=>setIptal(true)
-   })
+   },[])
 
    return {belgeEkle,belgeSil,response}
 }
