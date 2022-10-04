@@ -1,7 +1,7 @@
 import { useEffect,useState,useReducer } from "react";
 import {db} from "../firebase/config"
-import { collection } from "firebase/firestore";
-import { async } from "@firebase/util";
+import { collection,addDoc } from "firebase/firestore";
+
 
 const baslangicVeri={
     belge:null,
@@ -12,6 +12,12 @@ const baslangicVeri={
 
 const firestoreReducer=(state,action)=>{
     switch (action.type){
+        case 'BEKLIYOR':
+            return {hata:null,belge:null,basari:false,bekliyor:true}
+        case 'BELGE_EKLENDI': 
+            return {hata:null,belge:action.payload,basari:true,bekliyor:false}
+            case 'HATA': 
+            return {hata:action.payload,belge:null,basari:false,bekliyor:false}      
 
         default:
             return state;
@@ -26,6 +32,21 @@ export const useFirestore=(col)=>{
    const ref=collection(db,col)
 
    const belgeEkle=async (belge)=>{
+
+    dispatch({type:'BEKLIYOR'})
+
+    try {
+        const eklenenBelge=await addDoc(ref,belge)
+        if(!iptal){
+            dispatch({type:'BELGE_EKLENDI',payload:eklenenBelge})
+        }
+
+   } catch (error) {
+    if(!iptal){
+        dispatch({type:'HATA',payload:error.message})
+      }
+        
+    }
 
    }
 
