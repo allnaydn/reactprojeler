@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
 import {Button,TextField,Typography} from '@mui/material'
-import {useFirestore} from '../..hooks/useFirestore'
+import { useFirestore } from '../../hooks/useFirestore'
 
 export default function Form({uid}) {
     const {belgeEkle,response}=useFirestore('harcamalar')

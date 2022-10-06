@@ -1,6 +1,6 @@
 import React from 'react'
 import {List,ListItem,ListItemText,Divider,IconButton} from "@mui/material"
-import DeleteIcon from "@mui/material"
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useFirestore } from '../../hooks/useFirestore';
 
 export default function Liste({harcamalar}) {

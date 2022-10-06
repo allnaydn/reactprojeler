@@ -1,13 +1,13 @@
 import { useEffect,useState,useRef } from "react";
 import { db } from "../firebase/config";
-import { collection,onSnapshot,query,where,orderBy } from "firebase/firestore";
+import { collection,onSnapshot,query,where,orderBy } from 'firebase/firestore';
 
 export const useCollection=(col,_query)=>{
 
     const[belgeler,setBelgeler]=useState(null)
     const[hata,setHata]=useState(null)
     const q=useRef(_query).current;
-    const orderBy=useRef(_orderBy).current;
+    const oBy=useRef(orderBy).current
     
 
     useEffect(()=>{
