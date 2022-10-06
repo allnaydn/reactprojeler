@@ -2,20 +2,19 @@ import {initializeApp} from 'firebase/app'
 import {getFirestore} from 'firebase/firestore'
 import {getAuth} from 'firebase/auth'
 
-
-
 const firebaseConfig = {
-    apiKey: "AIzaSyBfFeaoL3UtHvLFceb-kE8ziE2fC2MdzEo",
-    authDomain: "modern-react-app-5ab99.firebaseapp.com",
-    projectId: "modern-react-app-5ab99",
-    storageBucket: "modern-react-app-5ab99.appspot.com",
-    messagingSenderId: "433135622498",
-    appId: "1:433135622498:web:090e3a05f641fbac13f43b"
-  };
+    apiKey: "AIzaSyB6WOJu0M3JUiatwCNrwKI257GANlahs7k",
+    authDomain: "modern-react-test.firebaseapp.com",
+    projectId: "modern-react-test",
+    storageBucket: "modern-react-test.appspot.com",
+    messagingSenderId: "428399949155",
+    appId: "1:428399949155:web:b37e71e265a62577374f56"
+};
 
-  initializeApp (firebaseConfig);
+initializeApp(firebaseConfig);
 
-  const db=getFirestore();
-  const auth=getAuth();
+const db=getFirestore();
+const auth=getAuth();
 
-  export {db,auth}
+export {db,auth}
+

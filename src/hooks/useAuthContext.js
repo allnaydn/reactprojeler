@@ -1,12 +1,12 @@
-import { AuthContext } from "../contexts/AuthContext";
-import { useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext"
+import { useContext } from "react"
 
-export const useAuthContext=()=>{
-    const context=useContext(AuthContext);
-
-    if(!context){
-        throw new Error('Context Bulunmadı');
+export const useAuthContext = () => {
+    const context = useContext(AuthContext)
+  
+    if(!context) {
+      throw Error('Context Provider Bulunamadı')
     }
-
-    return context;
-}
+  
+    return context
+  }
